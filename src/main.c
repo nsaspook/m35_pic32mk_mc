@@ -63,6 +63,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "m35qei.h"
 
 
+extern QEI_DATA m35_1;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Main Entry Point
@@ -79,28 +81,29 @@ void _mon_putc(char c)
 
 int main(void)
 {
-	int32_t itest, update_count = 0;
 	/* Initialize all MPLAB Harmony modules, including application(s). */
 	SYS_Initialize(NULL);
 
 	/* serial clock is off, this is actually 76.8 kb/s */
 	DRV_USART0_BaudSet(115200);
-	
+	m35_1.update = 0;
+
 	while (true) {
 		/* Maintain state machines of all polled MPLAB Harmony modules. */
 		SYS_Tasks();
-		
-		/* update local value of the position counter */
-		itest = POS1CNT;
 
-		if (update_count++ > 20480) {
+		/* update local value of the encoder position counter */
+		m35_1.pos = POS1CNT;
+		m35_1.vel = VEL1CNT;
+
+		if (m35_1.update++ > 20480) {
 			/* flash the board leds using the position counter bits */
-			LATGbits.LATG12 = itest >> 10;
-			LATGbits.LATG13 = itest >> 12;
-			LATGbits.LATG14 = itest >> 14;
+			LATGbits.LATG12 = m35_1.pos >> 10;
+			LATGbits.LATG13 = m35_1.pos >> 12;
+			LATGbits.LATG14 = m35_1.pos >> 14;
 			/* send to uart3 the current POS1CNT value */
-			printf("count %8i\r\n", itest);
-			update_count = 0;
+			printf("count %8i\r\n", m35_1.pos);
+			m35_1.update = 0;
 		}
 	}
 

@@ -4,9 +4,20 @@
 #include <xc.h>
 #include <stdio.h>
 
+QEI_DATA m35_1;
+
 int32_t m35_init_qei(void)
 {
 	/* port pin numbers from port_p32mk1024mcf100.h */
+
+	/*
+	 * QEI #1 pin connections
+	 * 
+	 * QEA1 RPA0
+	 * QEB1 RPA14
+	 * INDX1 RPB6
+	 * HOME1 RPB9
+	 */
 	QEA1R = 0x00;
 	QEB1R = 0x0D;
 	INDX1R = 0x00;

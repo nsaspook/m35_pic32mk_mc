@@ -21,6 +21,14 @@ extern "C" {
 	 * HOME1 RPB9
 	 */
 
+	/*
+	 * encoder device data
+	 */
+	typedef struct {
+		int32_t pos, vel;
+		uint32_t update;
+	} QEI_DATA;
+
 	int32_t m35_init_qei(void);
 
 #ifdef	__cplusplus
