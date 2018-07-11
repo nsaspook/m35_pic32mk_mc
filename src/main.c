@@ -101,8 +101,8 @@ int main(void)
 			LATGbits.LATG12 = m35_1.pos >> 10;
 			LATGbits.LATG13 = m35_1.pos >> 12;
 			LATGbits.LATG14 = m35_1.pos >> 14;
-			/* send to uart3 the current POS1CNT value */
-			printf("count %8i\r\n", m35_1.pos);
+			/* send to uart3 the current QEI values */
+			printf("c %8i:v %8i\r\n", m35_1.pos, m35_1.vel);
 			m35_1.update = 0;
 		}
 	}
