@@ -97,7 +97,7 @@ int main(void)
 		m35_1.vel = VEL1CNT;
 
 		if (m35_1.update++ > 20480) {
-			/* flash the board leds using the position counter bits */
+			/* flash the board led(s) using the position counter bits */
 			LATGbits.LATG12 = m35_1.pos >> 10;
 			LATGbits.LATG13 = m35_1.pos >> 12;
 			LATGbits.LATG14 = m35_1.pos >> 14;
